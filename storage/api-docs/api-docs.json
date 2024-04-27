@@ -1,0 +1,511 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Products Controller",
+        "version": "1"
+    },
+    "paths": {
+        "/categories/{id}": {
+            "get": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Display the specified resource.",
+                "operationId": "4cdf41756315109f1efc72787db5830a",
+                "responses": {
+                    "204": {
+                        "description": "The Category was successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/category"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Remove the specified resource from storage.",
+                "operationId": "f1b8af6e84bd52b9594d98bde748ebd6",
+                "responses": {
+                    "204": {
+                        "description": "The Category was successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Update the specified resource in storage.",
+                "operationId": "fad7d7ab8a8e415f1d330c72f3dd6f4e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/updateCategory"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "The Category was successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/category"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/categoryIdPathParameter"
+                }
+            ]
+        },
+        "/auth/signUp": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Store a newly created resource in storage.",
+                "operationId": "367dbd4d7ec513226afda17d40428f8a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The User was successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/user"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Login the user.",
+                "operationId": "8cb7742ae98d0990acb2907c4e00bf24",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/loginUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The User was successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/user"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Logout the signed in user.",
+                "operationId": "0d29c740dc06d77602af8095bf4654cc",
+                "responses": {
+                    "200": {
+                        "description": "The User was successfully logged out"
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Display a listing of the resource.",
+                "operationId": "ead5fb1cf2a7453acb2e37928a1b1eaf",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/categorySearch"
+                    },
+                    {
+                        "$ref": "#/components/parameters/categoryOrderBy"
+                    },
+                    {
+                        "$ref": "#/components/parameters/categoryDirection"
+                    },
+                    {
+                        "$ref": "#/components/parameters/categoryPerPage"
+                    },
+                    {
+                        "$ref": "#/components/parameters/categoryPage"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "The Category was successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/paginatedCategory"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Store a newly created resource in storage.",
+                "operationId": "bb02f0320882db37f99574196577e446",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createCategory"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The Category was successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/category"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{id}/products": {
+            "get": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Display a listing of products for the specified category id.",
+                "operationId": "48743b643d36fa8cc15497835f0636c2",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/categoryIdPathParameter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The Categories were fetched successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "oneOf": [
+                                            {
+                                                "$ref": "#/components/schemas/product"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Display a listing of the resource.",
+                "operationId": "c1ff6f862214e1896c59cfe0491ce0e8",
+                "responses": {
+                    "204": {
+                        "description": "The Product was successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/product"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Store a newly created resource in storage.",
+                "operationId": "399770d33fa4672f1216707d0e236763",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createProduct"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "The Product was successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/product"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "createUser": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "loginUser": {
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "user": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "category": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "datetime",
+                        "default": "2017-02-02 18:31:45",
+                        "pattern": "YYYY-MM-DD"
+                    }
+                },
+                "type": "object"
+            },
+            "createCategory": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "createProduct": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "category_id": {
+                        "type": "integer"
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "price": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "paginatedCategory": {
+                "properties": {
+                    "current_page": {
+                        "type": "integer"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/category"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryIdData": {
+                "$ref": "test"
+            },
+            "categoryQueryData": {},
+            "updateCategory": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "product": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "category_id": {
+                        "type": "integer"
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "price": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "parameters": {
+            "categoryIdPathParameter": {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "categorySearch": {
+                "name": "search",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "categoryOrderBy": {
+                "name": "orderBy",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "required": [],
+                    "type": "string",
+                    "enum": [
+                        "",
+                        "id",
+                        "name"
+                    ],
+                    "nullable": true
+                }
+            },
+            "categoryDirection": {
+                "name": "direction",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "required": [],
+                    "type": "string",
+                    "enum": [
+                        "",
+                        "asc",
+                        "desc"
+                    ],
+                    "nullable": true
+                }
+            },
+            "categoryPerPage": {
+                "name": "perPage",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "int"
+                }
+            },
+            "categoryPage": {
+                "name": "page",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "int"
+                }
+            }
+        }
+    }
+}
