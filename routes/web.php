@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::prefix('auth')->group(function () {
 
     Route::post('/signUp', [AuthController::class, 'signUp']);
