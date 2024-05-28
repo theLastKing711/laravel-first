@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $name
@@ -30,6 +30,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Category whereName($value)
  * @method static Builder|Category whereUpdatedAt($value)
  * @method static Builder|Category active()
+ * @method static Builder|Category conditionalOrderBy(string $orderByField, string $directionValue)
+ * @method static Builder|Category testing()
  * @mixin Eloquent
  */
 class Category extends Model
@@ -60,9 +62,9 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function scopeActive($query)
+    public function scopeActive(Builder $query): void
     {
-        return $query->where('status', 'active');
+         $query->where('status', 'active');
     }
 
 

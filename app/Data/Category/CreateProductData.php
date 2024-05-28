@@ -25,20 +25,6 @@ class CreateProductData extends Data
     ) {
     }
 
-    public static function rules(): array
-    {
-        return [
-            'name' => 'required',
-            'category_id' => [
-                'required',
-                Rule::exists(Category::class, 'id')
-            ],
-            'isActive' => 'required',
-            'price' => 'required|decimal:2',
-            'quantity' => 'required'
-        ];
-    }
-
     public function fromModel(Product $product): self
     {
         return new self(
@@ -48,6 +34,20 @@ class CreateProductData extends Data
             price: $product->price,
             quantity: $product->quantity,
         );
+    }
+
+    public static function rules(): array
+    {
+        return [
+            'name' => 'required|string',
+            'category_id' => [
+                'required',
+                Rule::exists(Category::class, 'id')
+            ],
+            'isActive' => 'required',
+            'price' => 'required|decimal:2|gte:0',
+            'quantity' => 'required'
+        ];
     }
 }
 

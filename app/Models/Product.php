@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $category_id
@@ -36,6 +36,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Product wherePrice($value)
  * @method static Builder|Product whereQuantity($value)
  * @method static Builder|Product whereUpdatedAt($value)
+ * @property-read \App\Models\Supplier|null $supplier
  * @mixin Eloquent
  */
 class Product extends Model
@@ -54,8 +55,12 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    //relations
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 
+    //relations
     public function isInStock(): bool
     {
         return $this->quantity > 0;
@@ -72,7 +77,7 @@ class Product extends Model
     public function scopeActive(
         Builder $query
     ): void {
-        $query->where('isActive', true)->get();
+        $query->where('isActive', true);
     }
 
 

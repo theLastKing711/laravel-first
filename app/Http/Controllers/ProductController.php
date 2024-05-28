@@ -29,20 +29,20 @@ class ProductController extends Controller
     public function index()
     {
 
-        $products = Product::select([
-            'id',
-            'category_id',
-            'isActive',
-            'name',
-            'price',
-            'quantity',
-        ])
+        $products = Product
+            ::select([
+                'id',
+                'category_id',
+                'isActive',
+                'name',
+                'price',
+                'quantity',
+            ])
             ->get();
 
         $productsDto = ProductData::collect($products);
 
         return $productsDto;
-
     }
 
     /**
@@ -70,7 +70,6 @@ class ProductController extends Controller
         $createdProductDto = ProductData::from($product);
 
         return $request;
-
     }
 
     /**

@@ -33,12 +33,7 @@
                 "operationId": "f1b8af6e84bd52b9594d98bde748ebd6",
                 "responses": {
                     "204": {
-                        "description": "The Category was successfully deleted",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "The Category was successfully deleted"
                     }
                 }
             },
@@ -76,6 +71,27 @@
                     "$ref": "#/components/parameters/categoryIdPathParameter"
                 }
             ]
+        },
+        "/sanctum/csrf-cookie": {
+            "get": {
+                "tags": [
+                    "sanctum"
+                ],
+                "summary": "Get Token",
+                "operationId": "31ee4c9b9b300376e163c074b972b5ad",
+                "responses": {
+                    "200": {
+                        "description": "The User was successfully created",
+                        "headers": {
+                            "Set-Cookie": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         "/auth/signUp": {
             "post": {
@@ -253,6 +269,56 @@
                 }
             }
         },
+        "/orders": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "Return a list of orders with thier order items",
+                "operationId": "325fd3d55bbe9bb39645269928fa4983",
+                "responses": {
+                    "204": {
+                        "description": "The Order was successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/order"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "Create a new Order for the authenticated user",
+                "operationId": "445bab4f7dc9ea6fcd54f286c0209478",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createOrder"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The Order was successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/order"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/products": {
             "get": {
                 "tags": [
@@ -419,6 +485,68 @@
                 },
                 "type": "object"
             },
+            "createOrder": {
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/createOrderItem"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "order": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "total": {
+                        "type": "string"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/orderItem"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "createOrderItem": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "orderItem": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "price": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "datetime",
+                        "default": "2017-02-02 18:31:45",
+                        "pattern": "YYYY-MM-DD"
+                    }
+                },
+                "type": "object"
+            },
             "product": {
                 "properties": {
                     "id": {
@@ -505,6 +633,11 @@
                 "schema": {
                     "type": "int"
                 }
+            }
+        },
+        "securitySchemes": {
+            "basicAuth": {
+                "type": "apiKey"
             }
         }
     }

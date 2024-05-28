@@ -10,6 +10,7 @@ use App\Data\Category\UpdateCategoryData;
 use App\Data\Product\ProductData;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use OpenApi\Attributes as OAT;
 
 //apply this parameters to all descendents routes with the specified path here
@@ -60,8 +61,11 @@ class CategoryController extends Controller
             )
         ],
     )]
-    public function index(CategoryQueryData $request)
+    public function index(CategoryQueryData $request, Request $r)
     {
+//        $r->session()->regenerate();
+//        return $r->session()->all();
+
         $orderByFilter = $request->orderBy;
         $directionFilter = $request->direction;
 
@@ -160,16 +164,14 @@ class CategoryController extends Controller
             new OAT\Response(
                 response: 204,
                 description: 'The Category was successfully deleted',
-                content: new OAT\JsonContent()
             )
         ],
     )]
     public function destroy(CategoryIdData $request)
     {
-        Category
+        $categoryDeleted = Category
             ::find($request->id)
             ->delete();
-
     }
 
     /**
